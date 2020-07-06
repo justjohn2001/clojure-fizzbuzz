@@ -1,6 +1,8 @@
 (ns fizzbuzz.core
   (:require [clojure.string :as string]))
 
+(def rules {3 "fizz" 5 "buzz" 7 "bazz"})
+
 (defn make-fb
   [[k s]]
   (map (fn [[n fs :as p]]
@@ -26,7 +28,7 @@
                 m)
         n)))
 
-(def fizz-buzz (fb-fn {3 "fizz" 5 "buzz" 7 "bazz"}))
+(def fizz-buzz (fb-fn rules))
 
 (defn lazy-fb
   ([] (lazy-fb 1))
@@ -36,7 +38,7 @@
 (defn -main
   [& args]
   (println (string/join ", "
-                        (sequence (fb-transducer {3 "fizz" 5 "buzz" 7 "baz"})
+                        (sequence (fb-transducer rules)
                                   (range 1 20))))
   (println (string/join ", "
                         (take 20 (lazy-fb)))))
